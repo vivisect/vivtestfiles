@@ -35,18 +35,36 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_i386.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
+            fh = bex.info('md5')
+
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
 
             view = vw.getVivView()
             self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
+            self.assertEqual( view.addrToFileAddr( bex.baseaddr() + 20 ), (fh,20) )
 
     def test_helloworld_vw_amd64(self):
         with v_helpers.testfd('helloworld','hello_amd64.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
+            fh = bex.info('md5')
+
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
 
             view = vw.getVivView()
             self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
+            self.assertEqual( view.addrToFileAddr( bex.baseaddr() + 20 ), (fh,20) )
+
+    def test_helloworld_analyze_i386(self):
+        with v_helpers.testfd('helloworld','hello_i386.exe') as fd:
+            vw = v_workspace.VivWorkspace()
+            vw.loadFileFd(fd)
+            vw.runVivAnalyze()
+
+    def test_helloworld_analyze_amd64(self):
+        with v_helpers.testfd('helloworld','hello_amd64.exe') as fd:
+            vw = v_workspace.VivWorkspace()
+            vw.loadFileFd(fd)
+            vw.runVivAnalyze()
