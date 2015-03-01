@@ -11,10 +11,10 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_i386.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            self.assertEqual( bex.info('arch'), 'i386' )
-            self.assertEqual( bex.info('format'), 'pe' )
-            self.assertEqual( bex.info('platform'), 'windows' )
-            self.assertEqual( bex.info('byteorder'), 'little' )
+            self.assertEqual( bex.arch(), 'i386' )
+            self.assertEqual( bex.format(), 'pe' )
+            self.assertEqual( bex.platform(), 'windows' )
+            self.assertEqual( bex.byteorder(), 'little' )
 
             self.assertEqual( bex.baseaddr(), 0x400000 )
             self.assertIsNotNone( bex.section('.text') )
@@ -23,10 +23,10 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_amd64.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            self.assertEqual( bex.info('arch'), 'amd64' )
-            self.assertEqual( bex.info('format'), 'pe' )
-            self.assertEqual( bex.info('platform'), 'windows' )
-            self.assertEqual( bex.info('byteorder'), 'little' )
+            self.assertEqual( bex.arch(), 'amd64' )
+            self.assertEqual( bex.format(), 'pe' )
+            self.assertEqual( bex.platform(), 'windows' )
+            self.assertEqual( bex.byteorder(), 'little' )
 
             self.assertEqual( bex.baseaddr(), 0x140000000 )
             self.assertIsNotNone( bex.section('.text') )
@@ -36,7 +36,10 @@ class HelloWorldTest(unittest.TestCase):
             bex = v_bexfile.getBexFile(fd)
 
             vw = v_workspace.VivWorkspace()
-            vw.loadBexFile( bex )
+            md5 = vw.loadBexFile( bex )
+
+            self.assertEqual( vw.getVivConfig('arch'), 'i386' )
+            self.assertEqual( len(vw.getNodesByProp('fileaddr:entry',valu='func')), 1)
 
             view = vw.getVivView()
             self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
@@ -47,6 +50,9 @@ class HelloWorldTest(unittest.TestCase):
 
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
+
+            self.assertEqual( vw.getVivConfig('arch'), 'amd64' )
+            self.assertEqual( len(vw.getNodesByProp('fileaddr:entry',valu='func')), 159)
 
             view = vw.getVivView()
             self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
