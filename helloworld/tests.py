@@ -35,7 +35,7 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_i386.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            fh = bex.info('md5')
+            fh = bex.md5()
 
             vw = v_workspace.VivWorkspace()
             md5 = vw.loadBexFile( bex )
@@ -51,7 +51,7 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_amd64.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            fh = bex.info('md5')
+            fh = bex.md5()
 
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
