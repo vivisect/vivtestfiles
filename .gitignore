@@ -2,5 +2,7 @@
 *.obj
 *.swp
 *.py~
+*.lib
+*.exp
 .hg*
 __pycache__

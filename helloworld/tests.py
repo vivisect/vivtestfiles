@@ -38,7 +38,10 @@ class HelloWorldTest(unittest.TestCase):
             fh = bex.md5()
 
             vw = v_workspace.VivWorkspace()
-            vw.loadBexFile( bex )
+            md5 = vw.loadBexFile( bex )
+
+            self.assertEqual( vw.getVivConfig('arch'), 'i386' )
+            self.assertEqual( len(vw.getNodesByProp('fileaddr:entry',valu='func')), 1)
 
             view = vw.getVivView()
             self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
@@ -52,6 +55,9 @@ class HelloWorldTest(unittest.TestCase):
 
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
+
+            self.assertEqual( vw.getVivConfig('arch'), 'amd64' )
+            self.assertEqual( len(vw.getNodesByProp('fileaddr:entry',valu='func')), 159)
 
             view = vw.getVivView()
             self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
