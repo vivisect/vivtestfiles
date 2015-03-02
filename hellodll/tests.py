@@ -12,6 +12,8 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('hellodll','hellodll_i386.dll') as fd:
             bex = v_bexfile.getBexFile(fd)
 
+            self.assertEqual( bex.basename(), 'hellodll_i386' )
+
             self.assertEqual( bex.bintype(), 'dyn' )
             self.assertIn( (4096,'foo','unkn'), bex.exports() )
             self.assertIn( (40320, 'kernel32', 'GetTickCount'), bex.imports() )
@@ -20,6 +22,8 @@ class HelloWorldTest(unittest.TestCase):
 
         with v_helpers.testfd('hellodll','hellodll_amd64.dll') as fd:
             bex = v_bexfile.getBexFile(fd)
+
+            self.assertEqual( bex.basename(), 'hellodll_amd64' )
 
             self.assertEqual( bex.bintype(), 'dyn' )
             self.assertIn( (4096,'foo','unkn'), bex.exports() )
