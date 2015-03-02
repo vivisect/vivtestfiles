@@ -11,10 +11,10 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_i386.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            self.assertEqual( bex.info('arch'), 'i386' )
-            self.assertEqual( bex.info('format'), 'pe' )
-            self.assertEqual( bex.info('platform'), 'windows' )
-            self.assertEqual( bex.info('byteorder'), 'little' )
+            self.assertEqual( bex.arch(), 'i386' )
+            self.assertEqual( bex.format(), 'pe' )
+            self.assertEqual( bex.platform(), 'windows' )
+            self.assertEqual( bex.byteorder(), 'little' )
 
             self.assertEqual( bex.baseaddr(), 0x400000 )
             self.assertIsNotNone( bex.section('.text') )
@@ -23,10 +23,10 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_amd64.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            self.assertEqual( bex.info('arch'), 'amd64' )
-            self.assertEqual( bex.info('format'), 'pe' )
-            self.assertEqual( bex.info('platform'), 'windows' )
-            self.assertEqual( bex.info('byteorder'), 'little' )
+            self.assertEqual( bex.arch(), 'amd64' )
+            self.assertEqual( bex.format(), 'pe' )
+            self.assertEqual( bex.platform(), 'windows' )
+            self.assertEqual( bex.byteorder(), 'little' )
 
             self.assertEqual( bex.baseaddr(), 0x140000000 )
             self.assertIsNotNone( bex.section('.text') )
@@ -35,7 +35,7 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_i386.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            fh = bex.info('md5')
+            fh = bex.md5()
 
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
@@ -48,7 +48,7 @@ class HelloWorldTest(unittest.TestCase):
         with v_helpers.testfd('helloworld','hello_amd64.exe') as fd:
             bex = v_bexfile.getBexFile(fd)
 
-            fh = bex.info('md5')
+            fh = bex.md5()
 
             vw = v_workspace.VivWorkspace()
             vw.loadBexFile( bex )
