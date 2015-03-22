@@ -23,7 +23,7 @@ class HelloWorldTest(unittest.TestCase):
 
             basemaps = {'hellodll_i386':0x41410000}
             vv = vw.getVivView(basemaps=basemaps)
-            self.assertEqual(vv.readMemory(0x41410000,2), b'MZ')
+            self.assertEqual(vv.peek(0x41410000,2), b'MZ')
 
             cpu = vw.getVivCpu()
 
@@ -43,6 +43,6 @@ class HelloWorldTest(unittest.TestCase):
 
             basemaps = {'hellodll_amd64':0x41410000}
             vv = vw.getVivView(basemaps=basemaps)
-            self.assertEqual(vv.readMemory(0x41410000,2), b'MZ')
+            self.assertEqual(vv.peek(0x41410000,2), b'MZ')
 
             cpu = vw.getVivCpu()

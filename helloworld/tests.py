@@ -44,7 +44,7 @@ class HelloWorldTest(unittest.TestCase):
             self.assertEqual( len(vw.getNodesByProp('fileaddr:entry',valu='func')), 1)
 
             view = vw.getVivView()
-            self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
+            self.assertEqual( view.peek( bex.baseaddr(), 2 ), b'MZ' )
             self.assertEqual( view.addrToFileAddr( bex.baseaddr() + 20 ), (fh,20) )
 
     def test_helloworld_vw_amd64(self):
@@ -60,7 +60,7 @@ class HelloWorldTest(unittest.TestCase):
             self.assertEqual( len(vw.getNodesByProp('fileaddr:entry',valu='func')), 159)
 
             view = vw.getVivView()
-            self.assertEqual( view.readMemory( bex.baseaddr(), 2 ), b'MZ' )
+            self.assertEqual( view.peek( bex.baseaddr(), 2 ), b'MZ' )
             self.assertEqual( view.addrToFileAddr( bex.baseaddr() + 20 ), (fh,20) )
 
     def test_helloworld_analyze_i386(self):
