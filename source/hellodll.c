@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 
-// cl hellodll.c /link /DLL /out:hellodll_i386.dll
+// cl hellodll.c /link /DLL /out:pe/hellodll_i386.dll
 
 __declspec(dllexport)
 int foo(char *buf, int size) {
