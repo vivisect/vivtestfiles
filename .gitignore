@@ -6,3 +6,4 @@
 *.exp
 .hg*
 __pycache__
+*.un~
